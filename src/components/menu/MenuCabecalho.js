@@ -17,16 +17,16 @@ export default class MenuCabecalho extends Component {
 
     render() {
         return (
-            <header class="main-header sidebar-mini">
-                <a href="/home" class="logo">
-                    <span class="logo-mini"><b>Foot</b>Man</span>
-                    <span class="logo-lg text-left">Football Manager</span>
+            <header className="main-header sidebar-mini">
+                <a href="/home" className="logo">
+                    <span className="logo-mini"><b>Foot</b>Man</span>
+                    <span className="logo-lg text-left">Football Manager</span>
                 </a>
-                <nav class="navbar navbar-static-top">
-                <a href="#" class="fas fa-bars pull-left" data-toggle="push-menu" role="button">
+                <nav className="navbar navbar-static-top">
+                <a href="#" className="fas fa-bars pull-left" data-toggle="push-menu" role="button">
                 </a>
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">
+                    <div className="navbar-custom-menu">
+                        <ul className="nav navbar-nav">
                             
                         <li className="nav-item">
                             <a className="nav-link" style={{color:"azure"}} href="/" onClick ={this.logout}><i className="fas fa-sign-out-alt"></i> Sair</a>

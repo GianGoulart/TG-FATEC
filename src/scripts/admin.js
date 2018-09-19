@@ -91,12 +91,12 @@ if (typeof jQuery === 'undefined') {
           var data  = $this.data(DataKey);
     
           if (!data) {
-            var options = $.extend({}, Default, $this.data(), typeof option == 'object' && option);
+            var options = $.extend({}, Default, $this.data(), typeof option ==='object' && option);
             $this.data(DataKey, (data = new BoxRefresh($this, options)));
           }
     
-          if (typeof data == 'string') {
-            if (typeof data[option] == 'undefined') {
+          if (typeof data ==='string') {
+            if (typeof data[option] ==='undefined') {
               throw new Error('No method named ' + option);
             }
             data[option]();
@@ -261,12 +261,12 @@ if (typeof jQuery === 'undefined') {
           var data  = $this.data(DataKey);
     
           if (!data) {
-            var options = $.extend({}, Default, $this.data(), typeof option == 'object' && option);
+            var options = $.extend({}, Default, $this.data(), typeof option ==='object' && option);
             $this.data(DataKey, (data = new BoxWidget($this, options)));
           }
     
-          if (typeof option == 'string') {
-            if (typeof data[option] == 'undefined') {
+          if (typeof option ==='string') {
+            if (typeof data[option] ==='undefined') {
               throw new Error('No method named ' + option);
             }
             data[option]();
@@ -406,11 +406,11 @@ if (typeof jQuery === 'undefined') {
           var data  = $this.data(DataKey);
     
           if (!data) {
-            var options = $.extend({}, Default, $this.data(), typeof option == 'object' && option);
+            var options = $.extend({}, Default, $this.data(), typeof option ==='object' && option);
             $this.data(DataKey, (data = new ControlSidebar($this, options)));
           }
     
-          if (typeof option == 'string') data.toggle();
+          if (typeof option ==='string') data.toggle();
         });
       }
     
@@ -478,7 +478,7 @@ if (typeof jQuery === 'undefined') {
             $this.data(DataKey, (data = new DirectChat($this)));
           }
     
-          if (typeof option == 'string') data.toggle($this);
+          if (typeof option ==='string') data.toggle($this);
         });
       }
     
@@ -825,7 +825,7 @@ if (typeof jQuery === 'undefined') {
           var data  = $this.data(DataKey);
     
           if (!data) {
-            var options = $.extend({}, Default, $this.data(), typeof option == 'object' && option);
+            var options = $.extend({}, Default, $this.data(), typeof option ==='object' && option);
             $this.data(DataKey, (data = new PushMenu(options)));
           }
     
@@ -931,12 +931,12 @@ if (typeof jQuery === 'undefined') {
           var data  = $this.data(DataKey);
     
           if (!data) {
-            var options = $.extend({}, Default, $this.data(), typeof option == 'object' && option);
+            var options = $.extend({}, Default, $this.data(), typeof option ==='object' && option);
             $this.data(DataKey, (data = new TodoList($this, options)));
           }
     
-          if (typeof data == 'string') {
-            if (typeof data[option] == 'undefined') {
+          if (typeof data ==='string') {
+            if (typeof data[option] ==='undefined') {
               throw new Error('No method named ' + option);
             }
             data[option]();
@@ -1085,7 +1085,7 @@ if (typeof jQuery === 'undefined') {
           var data  = $this.data(DataKey);
     
           if (!data) {
-            var options = $.extend({}, Default, $this.data(), typeof option == 'object' && option);
+            var options = $.extend({}, Default, $this.data(), typeof option ==='object' && option);
             $this.data(DataKey, new Tree($this, options));
           }
         });

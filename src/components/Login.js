@@ -80,7 +80,6 @@ export default class Login extends Component {
         });
   }
 
-  
   render() {
     if (localStorage.getItem(firebaseAuthKey) === "1") return <SplashScreen />;
     return (
