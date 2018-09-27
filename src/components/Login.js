@@ -3,9 +3,6 @@ import {browserHistory} from 'react-router';
 import  {loginWithGoogle,loginWithFace, loginWithEmailAndPassword} from '../config/auth'
 import  {firebaseAuth}  from '../config/constants'
 import LinearProgress from '@material-ui/core/LinearProgress';
-import 'bootstrap/dist/js/bootstrap.min';
-import 'bootstrap/dist/js/bootstrap.bundle.min'
-import '../index.css';
 
 
 const firebaseAuthKey = "firebaseAuthInProgress";

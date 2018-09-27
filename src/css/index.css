@@ -3107,7 +3107,7 @@
  .treeview-menu > li {
    margin: 0;
  }
- .treeview-menu > li > a {
+ .treeview-menu > li > a, .treeview-menu > li > a:hover {
    padding: 5px 5px 5px 15px;
    display: block;
    font-size: 14px;
@@ -3279,12 +3279,12 @@
  }
  .login-page,
  .register-page {
-   background:url('./Dkhb4b2.jpg');
+   background:url('../assets/Dkhb4b2.jpg');
 
   }
 
   #home, #myteam, #tryout{
-    background:url('./Dkhb4b2.jpg');
+    background:url('../assets/Dkhb4b2.jpg');
 
   }
 

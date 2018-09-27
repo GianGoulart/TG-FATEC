@@ -1,40 +1,39 @@
 import React, { Component } from 'react';
+import MenuCabecalho from '../menu/MenuCabecalho';
+import MenuLateral from '../menu/MenuLateral';
 import Store from '../../store/store';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import MenuCabecalho from '../menu/MenuCabecalho';
-import MenuLateral from '../menu/MenuLateral';
+import TableTeam from './TableTeam';
 import { toogleMenuScript } from '../../scripts/javascript';
-import FormResultados from './FormResultados';
 
-class Resultados extends Component{
-    constructor(props){
-        super(props)
-    }
+class ViewTeam extends Component{
+    constructor(props) {
+        super(props);
 
+    } 
     renderizarComponente() {
         return (
             <div>
-                <FormResultados {...this.props}/>
+                <TableTeam {...this.props}/>
             </div>
         )
     }
 
     componentWillMount(){
         toogleMenuScript();
-        this.props.buscarCandidatos();
+        this.props.buscarAtletas();
     }
 
+  
     render(){
         return(
-            <div id="resultado">
+            <div id="myteam">
                 <MenuCabecalho  exibirMenuLateral={true}/>
                 <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
             </div>        
-
         )
     }
-  
 }
 
 const mapStateToProps = state => {
@@ -43,18 +42,17 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        buscarCandidatos() {
-            dispatch(Store.buscarCandidatos());
+        buscarAtletas() {
+            dispatch(Store.buscarAtletas());
         },
     }
 }
 
-Resultados.contextTypes = {
+ViewTeam.contextTypes = {
     store: PropTypes.object.isRequired
 }
 
-const ResultadosContainer = connect(mapStateToProps, mapDispatchToProps)(Resultados);
+const ViewTeamContainer = connect(mapStateToProps, mapDispatchToProps)(ViewTeam);
 
 
-
-export default ResultadosContainer
+export default ViewTeamContainer

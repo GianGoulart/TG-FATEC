@@ -1,31 +1,28 @@
-import {buscarAtletas, buscarPosicoes} from "../actions/actionCreator"
 import axios from 'axios';
-import { browserHistory } from 'react-router';
-
 
 var server = (process.env.SERVER === undefined || process.env.SERVER === null?'localhost:8000':process.env.SERVER)
 
 export default class store {
 
-    static buscaPosicoes(){
+    static buscarPosicoes(){
         return dispatch=>{
             axios.get(`http://${server}/draft/posicoes/`)
             .then(response => {
                 if(response.status === 200){
-                    return response.data.records;
+                    return response.data;
                 } else {
                     throw new Error("não foi possível buscar as filiais");
                 }
             })
             .then(posicoes => {
-                dispatch(buscarPosicoes(posicoes));  
+                dispatch({type:"POSICOES",posicoes});  
           }); 
         }
     }
 
     static buscarAtletas(){
         return dispatch =>{
-            axios.get(`http://${server}/draft/atletas/`)
+            axios.get(`http://${server}/draft/dados-atletas/`)
             .then(response=>{
                 if(response.data){
                     if(response.status === 200){
@@ -40,38 +37,14 @@ export default class store {
                 }
             })
             .then( atletas => {
-                console.log(atletas);
-                dispatch(buscarAtletas(atletas));            
+                dispatch({type:"ATLETAS", atletas  });            
             }) 
         }    
     }
-/*
-    static statusPagamentos(state){
-        var mesbase, anobase = ""
+
+    static buscarCandidatos(){
         return dispatch =>{
-            state.loading = true
-            dispatch(loading(state.loading))
-            if(state.mesanobase !== ""){
-                var mesanobase = state.mesanobase.split('-')
-                mesbase = mesanobase[1]
-                anobase = mesanobase[0]
-            }
-            axios({
-                method: 'post',
-                url: `http://${server}/conciliacao`,
-                data: {
-                    filial: state.filial,
-                    contribuicao: state.tipocontribuicao,
-                    mes: mesbase,
-                    ano: anobase,
-                    sindicato: state.sindicato,
-                    metodo: state.metodo,
-                    entregue: state.entregue,
-                    numeroap: state.numnf,
-                    status: state.status,
-                    pagamento: state.pagamento
-                }
-            })
+            axios.get(`http://${server}/draft/atletas/?tipo=2`)
             .then(response=>{
                 if(response.data){
                     if(response.status === 200){
@@ -85,27 +58,71 @@ export default class store {
                     alert('Nenhuma informação encontrada')
                 }
             })
-            .then( pagamentos => {
-                var gerados = []
-                if(pagamentos === undefined)
-                    pagamentos = []
-                if(pagamentos.integradas !== undefined && pagamentos.integradas !== null ){
-                    for(var i = 0 ; i < pagamentos.integradas.length; i++){
-                        gerados.push(pagamentos.integradas[i])
-                    }
-                }
-                if(pagamentos.pendentes !== undefined && pagamentos.pendentes !== null ){
-                    for(i = 0 ; i < pagamentos.pendentes.length; i++){
-                        gerados.push(pagamentos.pendentes[i])
-                    }
-                }
-                pagamentos.gerados = gerados
-                dispatch(statusPagamentos(pagamentos))
-                state.loading = false
-
-                dispatch(loading( state.loading))
-
+            .then( candidatos => {
+                dispatch({type:"CANDIDATOS", candidatos  });            
             }) 
         }    
-    } */
+    }
+    
+    static cadastrarCandidato(dados){
+        console.log(dados)
+        axios({
+            method:'post',
+            url: `http://${server}/draft/atletas`,
+            data: {
+                nome: dados.name,
+                email: dados.email,
+                altura: dados.altura,
+                peso: dados.peso,
+                dataNascimento: dados.dataNascimento,
+            }
+        })
+        .then(res=>{
+            console.log(res)
+            if(res.ok){
+                this.store.cadastrarPosicoes(dados.posicoes, res.body.idAtleta);    
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });    
+    }   
+
+
+    static cadastrarAvaliacao(e){
+        e.preventDefault()
+        axios({
+            method: 'put',
+            url: `http://${server}/draft/atletas/`+this.idAtleta,
+            data: {
+                
+            }
+        })
+        .then(res=>{
+            alert("Dados cadastrados")
+        })
+        .catch(function (error) {
+            console.log(error);
+        });    
+    }   
+
+    static cadastrarPosicoes(posicoes, idAtleta){
+        posicoes.map((posicao)=>(
+            axios({
+                method: 'post',
+                url: `http://${server}/draft/atletas-posicoes`,
+                data: {
+                    idAtleta: idAtleta,
+                    idPosicao: posicao.value
+                }
+            })
+            .then(res=>{
+                alert("Dados cadastrados")
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        ))
+            
+    }
 }
