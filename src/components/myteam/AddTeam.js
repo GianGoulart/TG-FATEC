@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import MenuCabecalho from '../menu/MenuCabecalho';
 import MenuLateral from '../menu/MenuLateral';
 import { toogleMenuScript } from '../../scripts/javascript';
-import FormResultados from './FormResultados';
+import FormAddTeam from './FormAddTeam';
 import {browserHistory} from 'react-router';
 
-class Resultados extends Component{
+class AddTeam extends Component{
     constructor(props){
         super(props)
     }
@@ -16,7 +16,7 @@ class Resultados extends Component{
     renderizarComponente() {
         return (
             <div>
-                <FormResultados {...this.props}/>
+                <FormAddTeam {...this.props}/>
             </div>
         )
     }
@@ -24,17 +24,15 @@ class Resultados extends Component{
     componentWillMount(){
         toogleMenuScript();
         this.props.buscarCandidatos();
-
     }
 
     render(){
         if(localStorage.getItem("appToken")){
             return(
-                <div id="resultado">
+                <div id="candidato">
                     <MenuCabecalho  exibirMenuLateral={true}/>
                     <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
                 </div>        
-
             )
         }else{
             browserHistory.push("/login")
@@ -50,24 +48,23 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        cadastrarAtleta(dados, e){
+            e.preventDefault()
+            dispatch(Store.cadastrarAtleta(dados));
+        },
         buscarCandidatos() {
             dispatch(Store.buscarCandidatos());
         },
-
-        cadastrarAvaliacao(body, event){
-            event.preventDefault();
-            dispatch(Store.cadastrarAvaliacao(body))
-        },
-       
+        cadastrarTelefones(dados){
+            dispatch(Store.cadastrarTelefones(dados))
+        }
     }
 }
 
-Resultados.contextTypes = {
+AddTeam.contextTypes = {
     store: PropTypes.object.isRequired
 }
 
-const ResultadosContainer = connect(mapStateToProps, mapDispatchToProps)(Resultados);
+const AddTeamContainer = connect(mapStateToProps, mapDispatchToProps)(AddTeam);
 
-
-
-export default ResultadosContainer
+export default AddTeamContainer

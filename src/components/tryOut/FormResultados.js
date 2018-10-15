@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import Select from 'react-select'
-
-
+import Alert from 'react-s-alert';
 export default class FormResultados extends Component {
+    handleClick1(e) {
+        e.preventDefault();
+        Alert.warning("", {
+            position: 'bottom',
+            effect: 'scale',
+            onShow: function () {
+                console.log('aye!')
+            },
+            beep: false,
+            timeout: 'none',
+            offset: 100
+        });
+    }
     render(){
         return(
+            
             <div className="box box-info container">
                 <div className="box-header with-border">
                     <h3 className="box-title">Resultados do Candidato</h3>
@@ -19,7 +31,7 @@ export default class FormResultados extends Component {
                             <div className="form-group">
                                 <strong>Escolha o Candidato</strong>
                                 <div className="input-group">
-                                    <select class="form-control" id="select-form">
+                                    <select className="form-control" id="idAtleta" name="idAtleta" ref={(input) => this.idAtleta = input} >
                                         <option value="0" key="0" >Selecione ...</option>
                                         {this.props.store.candidatos.map((candidato)=>(
                                             <option value={candidato.idAtleta} key={candidato.idAtleta} >{candidato.nome}</option>
@@ -31,28 +43,34 @@ export default class FormResultados extends Component {
                         </div>
                     </div>
                     <div className="row">                        
-                        <div className="form-group col-sm-4">
+                        <div className="form-group col-sm-3">
                             <strong>40 Jardas</strong>
                             <div className="input-group">
-                                <input type="number" min="0" max="100" step="0.01" className="form-control" placeholder="Tiro de 40 Jardas"/>
+                                <input type="number" min="0" max="100" step="0.01" className="form-control" id="quarentaJardas" name="quarentaJardas" ref={(input) => this.quarentaJardas = input} placeholder="Tiro de 40 Jardas"/>
                             </div>
                         </div>
-                        <div className="form-group col-sm-4">
-                            <strong>Impulsao</strong>
+                        <div className="form-group col-sm-3">
+                            <strong>Salto Horizontal</strong>
                             <div className="input-group">
-                                <input type="number" min="0" max="100" step="0.10" className="form-control" placeholder="Impulsão"/>
+                                <input type="number" min="0" max="100" step="0.10" className="form-control" id="saltoHorizontal" name="saltoHorizontal" ref={(input) => this.saltoHorizontal = input}   placeholder="Em centímetros"/>
                             </div>
                         </div>
-                        <div className="form-group col-sm-4">
+                        <div className="form-group col-sm-3">
+                            <strong>Salto Vertical</strong>
+                            <div className="input-group">
+                                <input type="number" min="0" max="100" step="0.10" className="form-control" id="saltoVertical" name="saltoVertical" ref={(input) => this.saltoVertical = input} placeholder="Em centímetros"/>
+                            </div>
+                        </div>
+                        <div className="form-group col-sm-3">
                             <strong>Força</strong>
                             <div className="input-group">
-                                <input type="number" min="0" max="100" step="0.10" className="form-control" placeholder="Força"/>
+                                <input type="number" min="0" max="100" step="0.10" className="form-control" id="supino" name="supino" ref={(input) => this.supino = input} placeholder="Força"/>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="box-footer">
-                    <button type="submit" className="btn btn-primary float-right">Registrar</button>
+                    <button type="submit"  onClick={event=>this.props.cadastrarAvaliacao(this, event)}  className="btn btn-primary float-right">Registrar</button>
                 </div>
             </div>
         )

@@ -4,11 +4,12 @@ import MenuLateral from '../menu/MenuLateral';
 import Store from '../../store/store';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TableTeam from './TableTeam';
+import TableResultados from './TableResultados';
 import { toogleMenuScript } from '../../scripts/javascript';
+import GraficosTryOutContainer from './GraficosTryOut';
 import {browserHistory} from 'react-router';
 
-class ViewTeam extends Component{
+class ViewResultados extends Component{
     constructor(props) {
         super(props);
 
@@ -16,31 +17,34 @@ class ViewTeam extends Component{
     renderizarComponente() {
         return (
             <div>
-                <TableTeam {...this.props}/>
+                <TableResultados {...this.props}/>
+                <GraficosTryOutContainer {...this.props}/>
             </div>
         )
     }
 
     componentWillMount(){
         toogleMenuScript();
+        this.props.buscarResultados(2);
         this.props.buscarPosicoesAtletas(0)
         this.props.buscarMedias();
-        this.props.buscarResultados(1);
+        this.props.buscarCandidatos();
     }
- 
+
+  
     render(){
         if(localStorage.getItem("appToken")){
-            return( 
+            return(
                 <div id="myteam">
                     <MenuCabecalho  exibirMenuLateral={true}/>
                     <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
                 </div>        
             )
         }else{
-            browserHistory.push("/login")
+            browserHistory.push("/login")            
             return null
         }
-    }
+    } 
 }
 
 const mapStateToProps = state => {
@@ -49,40 +53,46 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        buscarPosicoesAtletas(idAtleta){
-            dispatch(Store.buscarPosicoesAtletas(idAtleta));
+        buscarResultados(id) {
+            dispatch(Store.buscarResultados(id));
+        },
+        buscarPosicoesAtletas(id){
+            dispatch(Store.buscarPosicoesAtletas(id));
         },
         buscarMedias(){
             dispatch(Store.buscarMedias());
         },
-        buscarResultados(id) {
-            dispatch(Store.buscarResultados(id));
+        buscarCandidatos() {
+            dispatch(Store.buscarCandidatos());
         },
-        class(posicao, atleta){             
+        buscarMediasCandidato(event, dados){ 
+            dispatch(Store.buscarMediasCandidato(dados))
+        },  
+        class(posicao, resultado){             
             this.store.medias.map((media)=>{
                 if (media.posicao == posicao){
-                    var result = 0
-                    if( parseFloat(media.quarentaJardas) > parseFloat(atleta.quarentaJardas)){
+                    var result = 0 
+                    if( parseFloat(media.quarentaJardas) > parseFloat(resultado.quarentaJardas)){
                         result = result + 1
-                    }else if( parseFloat(media.quarentaJardas) < parseFloat(atleta.quarentaJardas)){
+                    }else if( parseFloat(media.quarentaJardas) < parseFloat(resultado.quarentaJardas)){
                         result = result - 1
                     }
 
-                    if( parseFloat(media.supino).toFixed(4) < parseFloat(atleta.supino).toFixed(4)){
+                    if( parseFloat(media.supino).toFixed(4) < parseFloat(resultado.supino).toFixed(4)){
                         result = result + 1
-                    }else if( parseFloat(media.supino).toFixed(4) > parseFloat(atleta.supino).toFixed(4)){
+                    }else if( parseFloat(media.supino).toFixed(4) > parseFloat(resultado.supino).toFixed(4)){
                         result = result - 1
                     }
                     
-                    if(parseFloat(media.saltoVertical) < parseFloat(atleta.saltoVertical)){
+                    if(parseFloat(media.saltoVertical) < parseFloat(resultado.saltoVertical)){
                         result = result + 1
-                    }else if(parseFloat(media.saltoVertical) > parseFloat(atleta.saltoVertical)){
+                    }else if(parseFloat(media.saltoVertical) > parseFloat(resultado.saltoVertical)){
                         result = result - 1
                     }
 
-                    if(parseFloat(media.saltoHorizontal)< parseFloat(atleta.saltoHorizontal)){
+                    if(parseFloat(media.saltoHorizontal)< parseFloat(resultado.saltoHorizontal)){
                         result = result + 1
-                    }else if(parseFloat(media.saltoHorizontal)> parseFloat(atleta.saltoHorizontal)){
+                    }else if(parseFloat(media.saltoHorizontal)> parseFloat(resultado.saltoHorizontal)){
                         result = result - 1
                     }
                     this.store.result = result
@@ -90,15 +100,13 @@ const mapDispatchToProps = dispatch => {
                 }
             })
         }
-         
     }
 }
 
-ViewTeam.contextTypes = {
+ViewResultados.contextTypes = {
     store: PropTypes.object.isRequired
 }
 
-const ViewTeamContainer = connect(mapStateToProps, mapDispatchToProps)(ViewTeam);
+const ViewResultadosContainer = connect(mapStateToProps, mapDispatchToProps)(ViewResultados);
 
-
-export default ViewTeamContainer
+export default ViewResultadosContainer

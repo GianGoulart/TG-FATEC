@@ -3,6 +3,7 @@ import ContentTryOut from './ContentTryOut';
 import MenuCabecalho from '../menu/MenuCabecalho';
 import MenuLateral from '../menu/MenuLateral';
 import { toogleMenuScript } from '../../scripts/javascript';
+import {browserHistory} from 'react-router';
 
 class TryOut extends Component{
     constructor(props) {
@@ -23,12 +24,18 @@ class TryOut extends Component{
     }
 
     render(){
+        if(localStorage.getItem("appToken")){
         return(
-        <div id="tryout">
-            <MenuCabecalho  exibirMenuLateral={true}/>
-            <MenuLateral  {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>
-        </div>
-        )
+            <div id="tryout">
+                <MenuCabecalho  exibirMenuLateral={true}/>
+                <MenuLateral  {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>
+            </div>
+            )
+        }else{
+            browserHistory.push("/login")
+            return null
+
+        }
     }
 }
 

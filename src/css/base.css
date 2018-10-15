@@ -95,11 +95,9 @@ table thead th {
     white-space: nowrap;
     width: 1%;
 }
-
-#root{
-    background:url('../assets/Dkhb4b2.jpg');
+.login-page{
+  overflow: hidden;
 }
-
 .treeview-menu {
 	display: none;
 	list-style: none;

@@ -31,7 +31,7 @@ class ContentTryOut extends Component{
                             <div className="box-header with-border">
                                 <h3 className="box-title">Cadastrar uma nova avaliação</h3>
                                 <div className="box-body">
-                                    <i className="fas fa-chart-bar fa-5x"></i>
+                                    <i className="fas fa-file-alt fa-5x"></i>
                                 </div>
                                 <div className="box-footer">
                                     <label>Cadastre as estatisticas dos candidatos avaliados</label>
@@ -41,6 +41,23 @@ class ContentTryOut extends Component{
                         </a>
                         <br />
                     </div>
+                    <div className="col-sm-4 text-center mb-4">
+                        <a href="/tryOut/resultados">
+                        <div className="box box-info">
+                            <div className="box-header with-border">
+                                <h3 className="box-title">Visualizar os resultados</h3>
+                                <div className="box-body">
+                                    <i className="fas fa-chart-bar fa-5x"></i>
+                                </div>
+                                <div className="box-footer">
+                                    <label>Visualize os resultados dos candidatos</label>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                        <br />
+                    </div>
+
                 </div>
             </div>
         );

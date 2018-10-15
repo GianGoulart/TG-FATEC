@@ -6,10 +6,13 @@ import FormCandidato from './FormCandidato';
 import MenuCabecalho from '../menu/MenuCabecalho';
 import MenuLateral from '../menu/MenuLateral';
 import { toogleMenuScript } from '../../scripts/javascript';
+import {browserHistory} from 'react-router';
+
 
 class Candidato extends Component{
     constructor(props){
         super(props)
+      
     }
 
     renderizarComponente() {
@@ -26,13 +29,19 @@ class Candidato extends Component{
     }
 
     render(){
-        return(
-            <div id="candidato">
-                <MenuCabecalho  exibirMenuLateral={true}/>
-                <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
-            </div>        
+        if(localStorage.getItem("appToken")){
+            return(
+                <div id="candidato">
+                    <MenuCabecalho  exibirMenuLateral={true}/>
+                    <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
+                </div>        
 
-        )
+            )
+        }else{
+            browserHistory.push("/login")
+            return null
+
+        }
     }
   
 }
@@ -50,9 +59,10 @@ const mapDispatchToProps = dispatch => {
             e.preventDefault()
             dispatch(Store.cadastrarCandidato(dados));
         },
-        cadastrarPosicoes(){
+        cadastrarPosicoes(posicoes, idAtleta){
             dispatch(Store.cadastrarPosicoes(posicoes, idAtleta));            
-        }
+        },
+    
     }
 }
 

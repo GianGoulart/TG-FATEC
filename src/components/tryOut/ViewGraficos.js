@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
+import MenuCabecalho from '../menu/MenuCabecalho';
+import MenuLateral from '../menu/MenuLateral';
 import Store from '../../store/store';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import MenuCabecalho from '../menu/MenuCabecalho';
-import MenuLateral from '../menu/MenuLateral';
+import GraficosTryOutContainer from './GraficosTryOut';
 import { toogleMenuScript } from '../../scripts/javascript';
-import FormResultados from './FormResultados';
 import {browserHistory} from 'react-router';
 
-class Resultados extends Component{
-    constructor(props){
-        super(props)
-    }
+class ViewGraficos extends Component{
+    constructor(props) {
+        super(props);
 
+    } 
     renderizarComponente() {
         return (
             <div>
-                <FormResultados {...this.props}/>
+                <GraficosTryOutContainer {...this.props}/>
             </div>
         )
     }
@@ -24,24 +24,23 @@ class Resultados extends Component{
     componentWillMount(){
         toogleMenuScript();
         this.props.buscarCandidatos();
-
+        this.props.buscarMedias();
     }
 
+  
     render(){
         if(localStorage.getItem("appToken")){
             return(
-                <div id="resultado">
+                <div id="graficos">
                     <MenuCabecalho  exibirMenuLateral={true}/>
                     <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
                 </div>        
-
             )
         }else{
             browserHistory.push("/login")
             return null
         }
     }
-  
 }
 
 const mapStateToProps = state => {
@@ -53,21 +52,22 @@ const mapDispatchToProps = dispatch => {
         buscarCandidatos() {
             dispatch(Store.buscarCandidatos());
         },
-
-        cadastrarAvaliacao(body, event){
-            event.preventDefault();
-            dispatch(Store.cadastrarAvaliacao(body))
-        },
-       
+        buscarMedias(){
+            dispatch(Store.buscarMedias());
+        },        
+        buscarMediasCandidato(event, dados){ 
+            dispatch(Store.buscarMediasCandidato(dados))
+        },  
+        buscarPosicoesAtletas(id){
+            dispatch(Store.buscarPosicoesAtletas(id))
+        }
     }
 }
 
-Resultados.contextTypes = {
+ViewGraficos.contextTypes = {
     store: PropTypes.object.isRequired
 }
 
-const ResultadosContainer = connect(mapStateToProps, mapDispatchToProps)(Resultados);
+const ViewGraficosContainer = connect(mapStateToProps, mapDispatchToProps)(ViewGraficos);
 
-
-
-export default ResultadosContainer
+export default ViewGraficosContainer

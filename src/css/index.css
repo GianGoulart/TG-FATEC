@@ -160,7 +160,7 @@
  a:focus {
    outline: none;
    text-decoration: none;
-   color: #72afd2;
+   color: #fff;
  }
  /* Page Header */
  .page-header {
@@ -3107,7 +3107,7 @@
  .treeview-menu > li {
    margin: 0;
  }
- .treeview-menu > li > a, .treeview-menu > li > a:hover {
+ .treeview-menu > li > a, .treeview-menu > li > a:hover, a:hover {
    padding: 5px 5px 5px 15px;
    display: block;
    font-size: 14px;
@@ -5062,4 +5062,8 @@ header{
   height: 65px;
 }
 
+a:hover {
+  color: #ffffff;
+  text-decoration:none;
+}
 

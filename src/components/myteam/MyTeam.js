@@ -3,7 +3,7 @@ import MenuCabecalho from '../menu/MenuCabecalho';
 import MenuLateral from '../menu/MenuLateral';
 import Content from './Content';
 import { toogleMenuScript } from '../../scripts/javascript';
-
+import {browserHistory} from 'react-router';
 
 class MyTeam extends Component{
     constructor(props) {
@@ -23,12 +23,17 @@ class MyTeam extends Component{
     }
 
     render(){
-        return(
-            <div id="myteam">
-                <MenuCabecalho  exibirMenuLateral={true}/>
-                <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
-            </div>        
-        )
+        if(localStorage.getItem("appToken")){
+            return(
+                <div id="myteam">
+                    <MenuCabecalho  exibirMenuLateral={true}/>
+                    <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
+                </div>        
+            )
+        }else{
+            browserHistory.push("/login")
+            return null
+        }
     }
 }
 

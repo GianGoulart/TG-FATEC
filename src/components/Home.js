@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import {logout} from '../config/auth'
-import { browserHistory } from 'react-router';
 import MenuLateral from './menu/MenuLateral';
 import MenuCabecalho from './menu/MenuCabecalho'
 import HomeContent from './HomeContent';
 import { toogleMenuScript } from '../scripts/javascript';
+import {browserHistory} from 'react-router';
 
-
-const appTokenKey = "appToken"; // also duplicated in Login.js
 class Home extends Component{
     constructor(props) {
         super(props);
@@ -15,17 +12,8 @@ class Home extends Component{
         this.state = {
             //firebaseUser: JSON.parse(localStorage.getItem("firebaseUser"))
         };
-
-        //console.log("User:", this.state.firebaseUser);
-        this.handleLogout = this.handleLogout.bind(this);
-    }    
-    handleLogout() {
-        logout().then(function () {
-            localStorage.removeItem(appTokenKey);
-            browserHistory.push("/");
-            console.log("user signed out from firebase");
-        });
-    }
+    }     
+   
     renderizarComponente() {
         return (
             <div>
@@ -36,14 +24,22 @@ class Home extends Component{
     
     componentWillMount(){
         toogleMenuScript();
+        this.token = localStorage.getItem("appToken") 
     }
     render(){
-        return(           
-            <div id="home">
-                <MenuCabecalho  exibirMenuLateral={true}/>
-                <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
-            </div>
-        )
+        if(!this.token){       
+            browserHistory.push('/login')
+            return null
+        }
+        else{
+            return(           
+                <div id="home">
+                    <MenuCabecalho  exibirMenuLateral={true}/>
+                    <MenuLateral {...this.props} renderizarComponente={this.renderizarComponente.bind(this)}/>                   
+                </div>
+            )
+    
+        }
     }
 }
 

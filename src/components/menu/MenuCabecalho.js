@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { Link} from 'react-router';
+import {logout} from '../../config/auth'
 
 export default class MenuCabecalho extends Component {
-    reload(evento) {
-        evento.preventDefault();
-        this.props.reload();
-    }
+
+    constructor(props) {
+        super(props);
+    }    
+  
     render() {
         return (
             <nav className="navbar fixed-top navbar-dark bg-dark">
 
-                <Link className="navbar-brand" to="/home" onClick={this.reload.bind(this)} >
+                <Link className="navbar-brand" to="/home" >
                     <h4>Football Manager </h4>
                 </Link>
 
@@ -25,7 +27,7 @@ export default class MenuCabecalho extends Component {
                 }
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <Link className="nav-link" to="/logout"><i className="fas fa-sign-out-alt"></i> Sair</Link>
+                        <a href="#" className="nav-link" onClick={logout}  ><i className="fas fa-sign-out-alt"></i> Sair</a>
                     </li>
                 </ul>
             </nav>

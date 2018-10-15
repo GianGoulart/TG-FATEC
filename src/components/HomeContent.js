@@ -22,7 +22,7 @@ class HomeContent extends Component{
                             <br />
                         </div>
                         <div className="col-sm-6 text-center mb-4">
-                            <a href="/tryOut/novo">
+                            <a href="/tryOut">
                             <div className="box box-info w-75">
                                 <div className="box-header with-border">
                                     <h3 className="box-title">Try Out </h3>

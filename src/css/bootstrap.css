@@ -159,8 +159,8 @@ a {
 }
 
 a:hover {
-  color: #0056b3;
-  text-decoration: underline;
+  color: #fff;
+  text-decoration: none;
 }
 
 a:not([href]):not([tabindex]) {
@@ -9163,7 +9163,7 @@ a.text-dark:hover, a.text-dark:focus {
   width: 0;
   top: 62px;
   height: 100%;
-  margin-left: -200px;
+  margin-left: -250px;
   overflow-y: auto;
   overflow-x: hidden;
   background: #202326;
@@ -9177,7 +9177,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 #wrapper.toggled #sidebar-wrapper {
-  width: 200px;
+  width: 250px;
 }
 
 #page-content-wrapper {
@@ -9240,7 +9240,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .sidebar-nav li a:hover {
   text-decoration: none;
-  color: #0083ca;
+  color: #f8f8f8;
   background: #eee;
 }
 
@@ -9267,13 +9267,13 @@ a.text-dark:hover, a.text-dark:focus {
     padding-left: 0;
   }
   #wrapper.toggled {
-    padding-left: 200px;
+    padding-left: 250px;
   }
   #sidebar-wrapper {
     width: 0;
   }
   #wrapper.toggled #sidebar-wrapper {
-    width: 200px;
+    width: 250px;
   }
   #page-content-wrapper {
     padding: 20px;
@@ -9373,15 +9373,72 @@ path {
   }
 }
 
-.body-login {
-  width: 100wh;
-  height: 100vh;
+.login-logo,
+ .register-logo {
+   font-size: 35px;
+   text-align: center;
+   margin-bottom: 25px;
+   font-weight: 300;
+   color:#fff;
+ }
+ .login-logo a,
+ .register-logo a {
+   color: #444;
+ }
+
+.login-box,
+ .register-box {
+   width: 360px;
+   margin: 7% auto;
+ }
+ @media (max-width: 768px) {
+   .login-box,
+   .register-box {
+     width: 90%;
+     margin-top: 20px;
+   }
+ }
+ .login-box-body,
+ .register-box-body {
+   background: #fff;
+   padding: 20px;
+   border-top: 0;
+   color: #666;
+   overflow-x: hidden;
+   overflow-y: hidden;
+ 
+ }
+ .login-box-body .form-control-feedback,
+ .register-box-body .form-control-feedback {
+   color: #777;
+ }
+ .login-box-msg,
+ .register-box-msg {
+   margin: 0;
+   text-align: center;
+   padding: 0 20px 20px 20px;
+ }
+ .social-auth-links {
+   margin: 10px 0;
+ }
+
+ .btn-facebook {
   color: #fff;
-  background: linear-gradient(90deg, #0083CA, #8E2073, #006195);
-  background-size: 800% 800%;
-  -webkit-animation: Gradient 20s ease infinite;
-  -moz-animation: Gradient 20s ease infinite;
-  animation: Gradient 20s ease infinite;
+  background-color: #3b5998;
+  border-color: rgba(0,0,0,0.2);
+}
+.btn-google {
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: rgba(0,0,0,0.2);
+}
+.btn-social {
+  position: relative;
+  padding-left: 44px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @-webkit-keyframes Gradient {
